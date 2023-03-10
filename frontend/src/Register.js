@@ -12,7 +12,9 @@ function Signup() {
             <div className="container">
                 <div className="screen">
                     <div className="screen__content">
-                        <form className="login" onSubmit={() => dispatch(signup())}>
+                        <form className="login" onSubmit={(e) => {
+                            e.preventDefault();
+                            dispatch(signup())}}>
                             <div className="login__field">
                                 <i className="login__icon fas fa-user" />
                                 <input

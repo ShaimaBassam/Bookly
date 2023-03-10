@@ -3,37 +3,39 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { emailORUsername, login, password } from "./actions";
 import './Relo.css';
+import {useNavigate} from "react-router-dom";
+
 
 
 // Define the Login component
 function Login() {
+  const nav=useNavigate();
   // Get the dispatch function from the useDispatch hook
-  const dispatch = useDispatch();
-
-  // Get the errorLog state from the Redux store using the useSelector hook
-  const errorLog = useSelector(state => state.login);
-
-  // Define a function to handle form submission
-  const handleSubmit = (event) => {
-    // Prevent the default form submission behavior
-    event.preventDefault();
-    // Dispatch the login action
-    dispatch(login());
-  }
+  const dispatch=useDispatch();
+    
+    const errorLog=useSelector(state=>state.login);
+    const Fun=(e)=>{
+      console.log("good")
+        e.preventDefault();
+        dispatch(login());
+        if (JSON.parse( sessionStorage.getItem("user_info"))){
+        nav("/home");}
+    }
 
   return (
     // Render the login form
     <div className="container">
       <div className="screen">
         <div className="screen__content">
-          <form className="login" onSubmit={handleSubmit}>
+          <form className="login"  onSubmit={
+            (e)=>Fun(e)}>
             <div className="login__field">
               <i className="login__icon fas fa-user" />
               <input
                 type="email"
                 className="login__input"
                 placeholder="Email"
-                onChange={(event) => dispatch(emailORUsername(event.target.value))}
+                onChange={(e)=>dispatch(emailORUsername(e.target.value))}
               />
             </div>
             <div className="login__field">
@@ -42,7 +44,7 @@ function Login() {
                 type="password"
                 className="login__input"
                 placeholder="Password"
-                onChange={(event) => dispatch(password(event.target.value))}
+                onChange={(e)=>dispatch(password(e.target.value))}
               />
             </div>
             <button className="button login__submit">
@@ -52,7 +54,7 @@ function Login() {
           </form>
           <p className="small fw-bold mt-2 pt-1 mb-0">
             Don't have an account?{' '}
-            <a href="./Register.js" className="link-danger">
+            <a href="./Home.js" className="link-danger">
               Register
             </a>
           </p>

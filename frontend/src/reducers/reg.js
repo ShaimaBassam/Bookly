@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 const nameRegExp= RegExp(
     /^[A-Za-z0-9_-]*$/
@@ -14,7 +14,6 @@ const passRegExp= RegExp(
 
 
 const registerReducer=(state={nameError:'',emailError:'',passError:'',confirmPassError:'',name:''},action)=>{
-
     switch(action.type){
         
         case "name":
@@ -49,7 +48,7 @@ const registerReducer=(state={nameError:'',emailError:'',passError:'',confirmPas
 
                 axios.post('http://localhost/Bookly/backend/reg.php?name='+state.name+'&email='+state.email+'&password='+state.password)
                 window.location.href = "/Login";
- 
+             console.log('here');
             }else{
                 return console.log('error');
             }
